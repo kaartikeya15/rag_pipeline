@@ -3,10 +3,9 @@ from PyPDF2 import PdfReader
 from app.config import settings
 from app.store import save_document, save_chunk, save_embedding, save_terms, bump_df
 import numpy as np
-from mistralai.client import MistralClient
+from mistralai import Mistral
 
-# Initialize Mistral client
-client = MistralClient(api_key=settings.MISTRAL_API_KEY)
+client = Mistral(api_key=settings.MISTRAL_API_KEY)
 
 def clean_text(text: str) -> str:
     """Basic cleaning of extracted text."""
