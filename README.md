@@ -98,9 +98,10 @@ rag_pipeline/
 │   ├── store.py         # SQLite persistence
 │   ├── config.py        # Settings (chunk size, thresholds, API keys)
 │   └── database.py      # DB init and connection
-├── static/
-│   └── index.html       # Chat UI
+│   └── static/
+│       └── index.html       # Chat UI
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
