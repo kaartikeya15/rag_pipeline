@@ -1,4 +1,4 @@
-# 📚 RAG Pipeline with FastAPI & Mistral AI
+# RAG Pipeline with FastAPI & Mistral AI
 
 This project implements a **Retrieval-Augmented Generation (RAG)** system from scratch.  
 It ingests PDF documents, extracts and chunks text, embeds those chunks, and enables querying via semantic + keyword search.  
@@ -6,9 +6,9 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 📄 PDF Ingestion & Chunking
+### PDF Ingestion & Chunking
 - Upload one or more PDF files via FastAPI.
 - Text extracted with **PyPDF2** and cleaned (whitespace normalization, empty-page skip).
 - Chunking uses a **sliding window with overlap** (`CHUNK_SIZE` and `CHUNK_OVERLAP` configurable).
@@ -16,28 +16,28 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
   - Semantic embeddings (for similarity search).
   - Term-frequency maps (for keyword matching).
 
-### 🤖 Query Processing
+### Query Processing
 - Lightweight **intent detection** (e.g., greetings like “hello” don’t trigger retrieval).
 - Query normalization (lowercasing, whitespace trimming).
 - Prepared for more advanced query rewriting if extended.
 
-### 🔍 Hybrid Semantic Search
+### Hybrid Semantic Search
 - **Cosine similarity** on embeddings + **TF-IDF–style keyword scores** combined.
 - Balances semantic meaning with keyword precision.
 - No external libraries or vector databases — **all retrieval implemented in SQLite + NumPy**.
 
-### 📝 Post-processing
+### Post-processing
 - Top-k results merged and re-ranked.
 - **Threshold check**: if average similarity is below `COSINE_THRESHOLD`, system refuses with  
   *“Insufficient evidence to answer confidently.”*
 - Results contextualized and passed to the LLM with citations.
 
-### 💬 Answer Generation
+### Answer Generation
 - **Mistral AI API (`mistralai`)** used for completions.
 - System prompt enforces grounding: *“Answer only using the provided context. Cite sources.”*
 - Answers include inline citations: `[doc:page:chunk]`.
 
-### 🎨 Web UI
+### Web UI
 - Modern **chat-style frontend** with:
   - PDF upload
   - Reset button to clear KB
@@ -45,9 +45,9 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
   - Auto-scroll and enter-to-send
 - Built with **vanilla HTML/CSS/JS** for simplicity.
 
-### 🛡️ Bonus Features
-- ✅ No third-party vector DB (embeddings stored in SQLite).
-- ✅ Citations required.
+### Bonus Features
+- No third-party vector DB (embeddings stored in SQLite).
+- Citations required.
 - 🔜 Extendable with:
   - Answer shaping (e.g., structured tables).
   - Hallucination filters (check unsupported claims).
@@ -59,25 +59,25 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
 
 ```mermaid
 flowchart TD
-    A[📄 PDF Upload] --> B[Text Extraction & Cleaning]
-    B --> C[Chunking + Tokenization]
+    A[PDF Upload] --> B[Text Extraction and Cleaning]
+    B --> C[Chunking and Tokenization]
     C --> D[Embeddings via Mistral API]
-    C --> E[Keyword Stats (TF)]
+    C --> E[Keyword Stats TF]
     D --> F[SQLite DB Storage]
     E --> F
-    G[🔍 Query] --> H[Intent Detection]
-    H --> I[Hybrid Search (Semantic + Keyword)]
+    G[Query] --> H[Intent Detection]
+    H --> I[Hybrid Search Semantic + Keyword]
     I --> J[Threshold Check]
-    J -->|Low similarity| K[Refusal: "Insufficient evidence"]
+    J -->|Low similarity| K[Refusal Insufficient evidence]
     J -->|Sufficient| L[Context Assembly]
-    L --> M[LLM (Mistral Chat)]
-    M --> N[Answer + Citations]
-    N --> O[💬 Web UI]
+    L --> M[LLM Mistral Chat]
+    M --> N[Answer with Citations]
+    N --> O[Web UI]
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Backend:** FastAPI  
 - **LLM:** Mistral AI API  
 - **Text Extraction:** PyPDF2  
@@ -87,7 +87,7 @@ flowchart TD
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 rag_pipeline/
@@ -106,7 +106,7 @@ rag_pipeline/
 
 ---
 
-## ⚙️ Setup & Run
+## Setup & Run
 
 ### 1. Clone repo & create venv
 ```bash
@@ -141,7 +141,7 @@ Open: [http://127.0.0.1:8000/static/index.html](http://127.0.0.1:8000/static/ind
 
 ---
 
-## 📌 Example Usage
+## Example Usage
 
 ### Upload
 ```
@@ -165,14 +165,14 @@ Response:
 }
 ```
 
-### Reset KB
+### Clear knowledge base
 ```
 POST /reset
 ```
 
 ---
 
-## 💡 Design Considerations
+## Design Considerations
 - **Chunking with overlap**: avoids semantic breaks mid-sentence; overlap preserves context continuity.  
 - **SQLite instead of vector DB**: keeps dependencies light, matches bonus point requirement.  
 - **Hybrid retrieval**: semantic search handles paraphrasing, keywords catch exact matches.  
@@ -182,7 +182,6 @@ POST /reset
 
 ---
 
-## 👤 Author
+## Author
 **Kaartikeya Panjwani**  
-Master’s in CS, NYU Courant Institute  
-Projects in ML, RAG, and full-stack development.  
+Master’s in CS, New York University
