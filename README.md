@@ -57,7 +57,7 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
 
 ## 🖇️ System Architecture
 
-```mermaid
+
 flowchart TD
     A[📄 PDF Upload] --> B[Text Extraction & Cleaning]
     B --> C[Chunking + Tokenization]
