@@ -2,8 +2,8 @@ import os
 from pydantic import BaseModel
 
 class Settings(BaseModel):
-    # Default API key
-    MISTRAL_API_KEY: str = os.getenv("MISTRAL_API_KEY", "CF2DvjIoshzasO0mtBkPj44fo2nXDwPk")
+    # Custom API key
+    MISTRAL_API_KEY: str = os.getenv("MISTRAL_API_KEY", "Lrs4xsjb1CUPX3B5bZx24XmH992ChYjE")
 
     # Models
     EMBED_MODEL: str = "mistral-embed"

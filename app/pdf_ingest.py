@@ -25,7 +25,7 @@ def chunk_text(text: str, size: int = settings.CHUNK_SIZE, overlap: int = settin
 
 def embed_text(text: str) -> np.ndarray:
     """Get embedding from Mistral API."""
-    resp = client.embeddings(model=settings.EMBED_MODEL, input=[text])
+    resp = client.embeddings.create(model=settings.EMBED_MODEL, inputs=[text])
     return np.array(resp.data[0].embedding, dtype="float32")
 
 def tokenize(text: str):

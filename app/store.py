@@ -89,3 +89,23 @@ def load_all_embeddings():
         vec = np.frombuffer(blob, dtype="float32")
         out.append((chunk_id, vec, doc_name, page, text))
     return out
+
+def get_term_stats(terms: list):
+    """
+    Return total number of chunks (N) and df (document frequency) for each query term.
+    """
+    with conn() as c:
+        df_rows = {
+            t: (c.execute("SELECT df FROM df WHERE term=?", (t,)).fetchone() or (0,))[0]
+            for t in terms
+        }
+        N = c.execute("SELECT COUNT(*) FROM chunks").fetchone()[0]
+    return N, df_rows
+
+def get_chunk_terms(chunk_id: int):
+    """
+    Return term frequency map for a specific chunk.
+    """
+    with conn() as c:
+        rows = c.execute("SELECT term, tf FROM terms WHERE chunk_id=?", (chunk_id,)).fetchall()
+    return dict(rows)
