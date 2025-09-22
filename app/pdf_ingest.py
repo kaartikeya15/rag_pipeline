@@ -7,6 +7,14 @@ from mistralai import Mistral
 
 client = Mistral(api_key=settings.MISTRAL_API_KEY)
 
+def embed_text(text: str) -> np.ndarray:
+    """Get embedding for a single query or text snippet."""
+    resp = client.embeddings.create(
+        model=settings.EMBED_MODEL,
+        inputs=[text]
+    )
+    return np.array(resp.data[0].embedding, dtype="float32")
+
 def clean_text(text: str) -> str:
     """Basic cleaning of extracted text."""
     text = re.sub(r'\s+', ' ', text)
@@ -23,15 +31,9 @@ def chunk_text(text: str, size: int = settings.CHUNK_SIZE, overlap: int = settin
         start += size - overlap
     return chunks
 
-def embed_text(text: str) -> np.ndarray:
-    """Get embedding from Mistral API."""
-    resp = client.embeddings.create(model=settings.EMBED_MODEL, inputs=[text])
-    return np.array(resp.data[0].embedding, dtype="float32")
-
 def tokenize(text: str):
     """Simple whitespace tokenizer."""
-    tokens = re.findall(r'\w+', text.lower())
-    return tokens
+    return re.findall(r'\w+', text.lower())
 
 def term_freq(tokens):
     """Compute term frequency map."""
@@ -51,19 +53,32 @@ def process_pdf(file_path: str, file_name: str):
             continue
 
         # Split into chunks
-        for chunk in chunk_text(text):
-            tokens = tokenize(chunk)
-            tf_map = term_freq(tokens)
+        chunks = chunk_text(text)
 
-            # Save chunk
-            chunk_id = save_chunk(doc_id, page_num + 1, chunk, len(tokens))
+        # Batch embeddings
+        batch_size = 32
+        for i in range(0, len(chunks), batch_size):
+            batch = chunks[i:i + batch_size]
+            
+            # Call API once per batch
+            resp = client.embeddings.create(
+                model=settings.EMBED_MODEL,
+                inputs=batch
+            )
 
-            # Save embedding
-            vec = embed_text(chunk)
-            save_embedding(chunk_id, vec)
+            for j, chunk in enumerate(batch):
+                tokens = tokenize(chunk)
+                tf_map = term_freq(tokens)
 
-            # Save keyword stats
-            save_terms(chunk_id, tf_map)
-            bump_df(set(tf_map.keys()))
+                # Save chunk
+                chunk_id = save_chunk(doc_id, page_num + 1, chunk, len(tokens))
+
+                # Save embedding
+                vec = np.array(resp.data[j].embedding, dtype="float32")
+                save_embedding(chunk_id, vec)
+
+                # Save keyword stats
+                save_terms(chunk_id, tf_map)
+                bump_df(set(tf_map.keys()))
 
     return {"document_id": doc_id, "name": file_name}

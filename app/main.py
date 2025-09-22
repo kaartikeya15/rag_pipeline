@@ -66,7 +66,6 @@ async def query_rag(req: QueryRequest):
             "You are a helpful assistant. "
             "Answer only using the provided context. "
             "Cite sources in brackets [doc:page:chunk]. "
-            "Respond in plain text only, no Markdown, no bold and special formatting."
         )
         user_prompt = f"Query: {query}\n\nContext:\n{context}"
 
