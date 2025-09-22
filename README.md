@@ -145,6 +145,7 @@ Open: [http://127.0.0.1:8000/static/index.html](http://127.0.0.1:8000/static/ind
 ## Example Usage
 
 ### Upload
+Click 'Choose Files' and upload PDF. Click the 'Upload' button to activate ingest.
 ```
 POST /ingest (multipart/form-data)
 ```
@@ -154,6 +155,7 @@ Response:
 ```
 
 ### Query
+After file upload confirmed chatbot, type in query and press Enter or click 'Send' to feed the query to LLM.
 ```
 POST /query
 { "query": "Summarize this document" }
@@ -167,6 +169,7 @@ Response:
 ```
 
 ### Clear knowledge base
+For deleting document information, click 'Clear knowledge base'.
 ```
 POST /reset
 ```
