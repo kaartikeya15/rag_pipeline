@@ -110,7 +110,7 @@ rag_pipeline/
 
 ### 1. Clone repo & create venv
 ```bash
-git clone https://github.com/<your-username>/rag_pipeline.git
+git clone https://github.com/kaartikeya15/rag_pipeline.git
 cd rag_pipeline
 python3 -m venv venv
 source venv/bin/activate
