@@ -173,6 +173,7 @@ For deleting document information, click 'Clear knowledge base'.
 ```
 POST /reset
 ```
+<img width="907" height="755" alt="Screenshot 2025-09-23 at 12 24 19 PM" src="https://github.com/user-attachments/assets/cc1e3281-9473-4c4c-a8c4-70db8e62372e" />
 
 ---
 
