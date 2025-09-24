@@ -98,9 +98,10 @@ rag_pipeline/
 │   ├── store.py         # SQLite persistence
 │   ├── config.py        # Settings (chunk size, thresholds, API keys)
 │   └── database.py      # DB init and connection
-├── static/
-│   └── index.html       # Chat UI
+│   └── static/
+│       └── index.html       # Chat UI
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -144,6 +145,7 @@ Open: [http://127.0.0.1:8000/static/index.html](http://127.0.0.1:8000/static/ind
 ## Example Usage
 
 ### Upload
+Click 'Choose Files' and upload PDF. Click the 'Upload' button to activate ingest.
 ```
 POST /ingest (multipart/form-data)
 ```
@@ -153,6 +155,7 @@ Response:
 ```
 
 ### Query
+After file upload confirmed chatbot, type in query and press Enter or click 'Send' to feed the query to LLM.
 ```
 POST /query
 { "query": "Summarize this document" }
@@ -166,9 +169,11 @@ Response:
 ```
 
 ### Clear knowledge base
+For deleting document information, click 'Clear knowledge base'.
 ```
 POST /reset
 ```
+<img width="907" height="755" alt="Screenshot 2025-09-23 at 12 24 19 PM" src="https://github.com/user-attachments/assets/cc1e3281-9473-4c4c-a8c4-70db8e62372e" />
 
 ---
 
