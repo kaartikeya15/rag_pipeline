@@ -48,10 +48,8 @@ Responses are generated through **Mistral AI LLM**, with citations to the suppor
 ### Bonus Features
 - No third-party vector DB (embeddings stored in SQLite).
 - Citations required.
-- 🔜 Extendable with:
-  - Answer shaping (e.g., structured tables).
-  - Hallucination filters (check unsupported claims).
-  - Query refusal for PII/legal/medical questions.
+- Answer shaping (e.g., structured tables).
+- Hallucination filters (check unsupported claims).
 
 ---
 
