@@ -185,6 +185,19 @@ POST /reset
 
 ---
 
+## IMPORTANT: Troubleshooting
+
+### "No answer returned"
+If the system returns `"[No answer returned]"` 
+This is not a bug in the pipeline.  
+It means the **Mistral AI free tier is rate-limited** (error code `429: service_tier_capacity_exceeded`).  
+
+**How to fix**:
+- Retry after a few minutes.
+- Or configure your own paid Mistral API key in `.env`:
+  ```env
+  MISTRAL_API_KEY=your_api_key_here
 ## Author
 **Kaartikeya Panjwani**  
-Master’s in CS, New York University
+Master’s in CS
+New York University
