@@ -12,6 +12,7 @@ class Settings(BaseModel):
     # Models
     EMBED_MODEL: str = "mistral-embed"
     CHAT_MODEL: str = "mistral-large-latest"
+    FALLBACK_CHAT_MODEL: str = os.getenv("FALLBACK_CHAT_MODEL", "mistral-small-latest")  # fallback model
 
     # Chunking parameters
     CHUNK_SIZE: int = int(os.getenv("CHUNK_SIZE", 800))
