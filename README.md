@@ -204,7 +204,7 @@ It means the **Mistral AI free tier is rate-limited** (error code `429: service_
    to 
   ```env
   CHAT_MODEL = "mistral-tiny"
-```
+
 ## Author
 **Kaartikeya Panjwani**  
 Master’s in CS
