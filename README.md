@@ -197,6 +197,14 @@ It means the **Mistral AI free tier is rate-limited** (error code `429: service_
 - Or configure your own paid Mistral API key in `.env`:
   ```env
   MISTRAL_API_KEY=your_api_key_here
+- Or in rag_pipeline/app/config.py line 14, change
+  ```env
+  CHAT_MODEL = "mistral-large-latest"
+  ```
+   to 
+  ```env
+  CHAT_MODEL = "mistral-tiny"
+```
 ## Author
 **Kaartikeya Panjwani**  
 Master’s in CS
