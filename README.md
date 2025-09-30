@@ -124,10 +124,12 @@ pip install -r requirements.txt
 Create `.env`:
 ```
 MISTRAL_API_KEY=your_api_key_here
-CHUNK_SIZE=500
-CHUNK_OVERLAP=50
-TOP_K=3
-COSINE_THRESHOLD=0.75
+CHUNK_SIZE=800
+CHUNK_OVERLAP=200
+TOP_K=6
+ALPHA=0.6
+BETA=0.4
+COSINE_THRESHOLD=0.25
 ```
 
 ### 4. Run server

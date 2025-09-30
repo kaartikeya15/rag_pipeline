@@ -23,16 +23,28 @@ app = FastAPI(title="StackAI RAG", version="0.1", lifespan=lifespan)
 
 @app.post("/ingest")
 async def ingest(files: list[UploadFile] = File(...)):
+    """
+    Ingest uploaded PDF files:
+    1. Save temporarily
+    2. Process (extract, clean, chunk, embed, store in DB)
+    3. Delete temp file
+    4. Return document info
+    """
     results = []
     for file in files:
+        # Create a temporary copy of the uploaded file
         temp_path = f"temp_{file.filename}"
         with open(temp_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
 
+        # Process PDF (text extraction, chunking, embeddings, DB save)
         doc_info = process_pdf(temp_path, file.filename)
         results.append(doc_info)
+
+        # Remove the temporary file after processing
         os.remove(temp_path)
 
+    # Response: list of ingested documents with IDs
     return {"ingested": results}
 
 class QueryRequest(BaseModel):
